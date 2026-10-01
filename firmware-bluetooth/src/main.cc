@@ -12,6 +12,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
+#include <zephyr/logging/log_ctrl.h>
 #include <zephyr/settings/settings.h>
 #include <zephyr/sys/byteorder.h>
 #include <zephyr/sys/printk.h>
@@ -900,8 +901,12 @@ void set_gpio_inout_masks(uint32_t in_mask, uint32_t out_mask) {
 }
 
 int main() {
+    int cdc_src = log_source_id_get("usb_cdc_acm");
+    if (cdc_src >= 0) {
+        log_filter_set(NULL, 0, (int16_t) cdc_src, LOG_LEVEL_NONE);
+    }
     LOG_INF("HID Remapper Bluetooth");
-
+    
     my_mutexes_init();
     button_init();
     leds_init();
