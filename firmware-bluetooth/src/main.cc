@@ -225,7 +225,7 @@ static bool scan_setup_filters() {
             LOG_DBG("all bonded peers connected, not scanning");
             return false;
         }
-        filter_mode |= BT_SCAN_ADDR_FILTER;
+        filter_mode = BT_SCAN_ADDR_FILTER;
         LOG_DBG("scanning for bonded peers only");
     } else {
         LOG_DBG("scanning for new peers");
